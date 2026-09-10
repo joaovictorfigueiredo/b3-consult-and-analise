@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+@media print {
+  /* Hide non-printable elements */
+  header,
+  aside,
+  .no-print,
+  button,
+  input,
+  input[type="range"] {
+    display: none !important;
+  }
+
+  body, html {
+    background-color: #ffffff !important;
+    color: #111827 !important;
+  }
+
+  /* Reset dark theme container styles for crisp printer contrast */
+  .bg-gray-900,
+  .bg-gray-950,
+  .bg-gray-900\/90,
+  .bg-gray-950\/80 {
+    background-color: #ffffff !important;
+    color: #111827 !important;
+    border-color: #e5e7eb !important;
+    box-shadow: none !important;
+  }
+
+  .text-white,
+  .text-gray-100,
+  .text-gray-200,
+  .text-gray-300 {
+    color: #111827 !important;
+  }
+
+  .text-gray-400,
+  .text-gray-500 {
+    color: #4b5563 !important;
+  }
+
+  .border-gray-800,
+  .border-gray-700 {
+    border-color: #d1d5db !important;
+  }
+
+  /* Ensure tables look sharp on paper */
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+  }
+
+  th, td {
+    border: 1px solid #e5e7eb !important;
+    padding: 8px !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  /* Page breaks */
+  .page-break {
+    page-break-before: always;
+  }
+}
+
+.print-only {
+  display: none;
+}

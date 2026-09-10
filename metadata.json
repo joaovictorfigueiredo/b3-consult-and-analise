@@ -1,0 +1,6 @@
+{
+  "name": "B3 & Global Investment Advisor",
+  "description": "Consultor e analisador de investimentos pessoal para B3 e mercado global com Streamlit, Python, yfinance e Inteligência Artificial Gemini.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
