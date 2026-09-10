@@ -9,15 +9,25 @@ const PORT = 3000;
 
 app.use(express.json());
 
-// Initialize Gemini Client
-const ai = new GoogleGenAI({
-  apiKey: process.env.GEMINI_API_KEY,
-  httpOptions: {
-    headers: {
-      "User-Agent": "aistudio-build",
-    },
-  },
-});
+// Lazy Gemini Client
+let aiClient: GoogleGenAI | null = null;
+function getGeminiClient(): GoogleGenAI {
+  const key = process.env.GEMINI_API_KEY;
+  if (!key) {
+    throw new Error("A chave GEMINI_API_KEY não foi configurada nas variáveis de ambiente.");
+  }
+  if (!aiClient) {
+    aiClient = new GoogleGenAI({
+      apiKey: key,
+      httpOptions: {
+        headers: {
+          "User-Agent": "aistudio-build",
+        },
+      },
+    });
+  }
+  return aiClient;
+}
 
 // Helper to normalize Brazilian B3 tickers
 function normalizeTicker(rawTicker: string): string {
@@ -222,6 +232,7 @@ REGRAS ESTRITAS DE COMPLIANCE REGULATÓRIO:
   const userContent = `[CONTEXTO CONSOLIDADO DA CARTEIRA]:\n${portfolioSummary || "Nenhuma carteira informada."}\n\n[PERGUNTA / SOLICITAÇÃO DO INVESTIDOR]:\n${prompt}`;
 
   try {
+    const ai = getGeminiClient();
     const response = await ai.models.generateContent({
       model: "gemini-3.8-flash",
       contents: userContent,
